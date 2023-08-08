@@ -2,11 +2,18 @@ import { Button, TextInput } from '@ignite-ui/react'
 import { useForm } from 'react-hook-form'
 import { Form } from './style'
 import { ArrowRight } from 'phosphor-react'
+import { z } from 'zod'
+
+const ClaimUsernameFormSchema = z.object({
+  username: z.string(),
+})
+
+type ClaimUsernameFormData = z.infer<typeof ClaimUsernameFormSchema> // passa as props do zod para o ts
 
 export function ClaimUsernameForm() {
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit } = useForm<ClaimUsernameFormData>()
 
-  async function handleClaimUsername(data: any) {
+  async function handleClaimUsername(data: ClaimUsernameFormData) {
     console.log(data)
   }
 
