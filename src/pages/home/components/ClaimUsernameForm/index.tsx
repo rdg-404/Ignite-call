@@ -1,7 +1,7 @@
 import { Button, TextInput, Text } from '@ignite-ui/react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Form, FormErrorMessage } from './style'
+import { Form, FormError, FormErrorMessage } from './style'
 import { ArrowRight } from 'phosphor-react'
 import { z } from 'zod'
 
@@ -49,9 +49,11 @@ export function ClaimUsernameForm() {
 
       <FormErrorMessage>
         <Text size="sm">
-          {errors.username
-            ? errors.username.message
-            : 'Digite o nome do usuário'}
+          {errors.username ? (
+            <FormError size="sm">{errors.username.message}</FormError>
+          ) : (
+            'Digite o nome do usuário'
+          )}
         </Text>
       </FormErrorMessage>
     </>
