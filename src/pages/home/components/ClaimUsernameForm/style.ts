@@ -19,3 +19,7 @@ export const FormErrorMessage = styled('div', {
     color: '$gray400',
   },
 })
+
+export const FormError = styled(Text, {
+  color: '#f75a68',
+})
