@@ -18,10 +18,22 @@ import { ArrowRight } from 'phosphor-react'
 import { z } from 'zod'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { getWeekDays } from '@/utils/get-week-days'
+import { zodResolver } from '@hookform/resolvers/zod'
 
-const timeIntervalFormSchema = z.object({})
+const timeIntervalFormSchema = z.object({
+  intervals: z.array(
+    z.object({
+      weekDay: z.number().min(0).max(6),
+      enabled: z.boolean(),
+      startTime: z.string(),
+      endTime: z.string(),
+    }),
+  ),
+})
 
-export default function ConnectGoogleCalendar() {
+type TimeIntervalsFormData = z.infer<typeof timeIntervalFormSchema>
+
+export default function TimeIntervals() {
   const {
     register,
     handleSubmit,
@@ -29,6 +41,7 @@ export default function ConnectGoogleCalendar() {
     control,
     formState: { isSubmitting, errors },
   } = useForm({
+    resolver: zodResolver(timeIntervalFormSchema),
     defaultValues: {
       intervals: [
         { weekDay: 0, enabled: false, startTime: '08:00', endTime: '18:00' },
@@ -51,7 +64,10 @@ export default function ConnectGoogleCalendar() {
 
   const intervals = watch('intervals')
 
-  async function handleSetTimeIntervals() {}
+  async function handleSetTimeIntervals(data: TimeIntervalsFormData) {
+    console.log(data)
+  }
+
   return (
     <Container>
       <Header>
