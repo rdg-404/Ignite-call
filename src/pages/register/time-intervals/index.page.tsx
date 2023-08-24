@@ -20,6 +20,7 @@ import { z } from 'zod'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { getWeekDays } from '@/utils/get-week-days'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { convertTimeStringToMinutes } from '@/utils/convert-time-string-to-minutes'
 
 const timeIntervalFormSchema = z.object({
   intervals: z
@@ -37,6 +38,15 @@ const timeIntervalFormSchema = z.object({
     )
     .refine((intervals) => intervals.length > 0, {
       message: 'Você precisa selecionar pelo menos um dia da semana',
+    })
+    .transform((intervals) => {
+      return intervals.map((interval) => {
+        return {
+          weekDay: interval.weekDay,
+          startTimeInMinutes: convertTimeStringToMinutes(interval.startTime),
+          endTimeInMinutes: convertTimeStringToMinutes(interval.endTime),
+        }
+      })
     }),
 })
 
