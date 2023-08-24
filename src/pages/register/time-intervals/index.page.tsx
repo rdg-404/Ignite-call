@@ -16,7 +16,7 @@ import {
 } from './style'
 import { ArrowRight } from 'phosphor-react'
 import { z } from 'zod'
-import { useFieldArray, useForm } from 'react-hook-form'
+import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { getWeekDays } from '@/utils/get-week-days'
 
 const timeIntervalFormSchema = z.object({})
@@ -67,7 +67,20 @@ export default function ConnectGoogleCalendar() {
             return (
               <IntervalItem key={field.id}>
                 <IntervalDay>
-                  <Checkbox />
+                  <Controller
+                    name={`intervals.${index}.enabled`}
+                    control={control}
+                    render={({ field }) => {
+                      return (
+                        <Checkbox
+                          onCheckedChange={(checked) =>
+                            field.onChange(checked === true)
+                          }
+                          checked={field.value}
+                        />
+                      )
+                    }}
+                  />
                   <Text>{weekDays[field.weekDay]}</Text>
                 </IntervalDay>
                 <IntervalInputs>
