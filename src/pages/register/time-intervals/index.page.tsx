@@ -47,10 +47,23 @@ const timeIntervalFormSchema = z.object({
           endTimeInMinutes: convertTimeStringToMinutes(interval.endTime),
         }
       })
-    }),
+    })
+    .refine(
+      (intervals) => {
+        return intervals.every(
+          (interval) =>
+            interval.endTimeInMinutes - 60 >= interval.startTimeInMinutes, // intervalo de tempo nao deve ser igual ou menor que o inicio
+        )
+      },
+      {
+        message:
+          'O horário de término deve ser pelo menos 1h distante do início.',
+      },
+    ),
 })
 
-type TimeIntervalsFormData = z.infer<typeof timeIntervalFormSchema>
+type TimeIntervalsFormInput = z.input<typeof timeIntervalFormSchema>
+type TimeIntervalsFormOutput = z.output<typeof timeIntervalFormSchema>
 
 export default function TimeIntervals() {
   const {
@@ -59,7 +72,8 @@ export default function TimeIntervals() {
     watch,
     control,
     formState: { isSubmitting, errors },
-  } = useForm({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } = useForm<TimeIntervalsFormInput, any, TimeIntervalsFormOutput>({
     resolver: zodResolver(timeIntervalFormSchema),
     defaultValues: {
       intervals: [
@@ -83,7 +97,7 @@ export default function TimeIntervals() {
 
   const intervals = watch('intervals')
 
-  async function handleSetTimeIntervals(data: TimeIntervalsFormData) {
+  async function handleSetTimeIntervals(data: TimeIntervalsFormOutput) {
     console.log(data)
   }
 
