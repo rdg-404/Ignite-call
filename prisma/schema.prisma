@@ -20,7 +20,7 @@ model User {
 
   accounts      Account[]
   sessions      Session[]
-  timeIntervals userTimeInterval[]
+  timeIntervals UserTimeInterval[]
 
   @@map("users") /// renomeia o nome da tabela
 }
@@ -55,7 +55,7 @@ model Session {
   @@map("sessions")
 }
 
-model userTimeInterval {
+model UserTimeInterval {
   id                    String @id @default(uuid())
   week_day              Int
   time_start_in_minutes Int
