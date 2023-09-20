@@ -22,6 +22,7 @@ import { getWeekDays } from '@/utils/get-week-days'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { convertTimeStringToMinutes } from '@/utils/convert-time-string-to-minutes'
 import { api } from '@/lib/axios'
+import { useRouter } from 'next/router'
 
 const timeIntervalFormSchema = z.object({
   intervals: z
@@ -89,6 +90,7 @@ export default function TimeIntervals() {
     },
   })
 
+  const router = useRouter()
   const weekDays = getWeekDays()
 
   const { fields } = useFieldArray({
@@ -106,6 +108,10 @@ export default function TimeIntervals() {
     })
   }
 
+  async function handleNavigateToNextStep() {
+    await router.push('/register/update-profile')
+  }
+
   return (
     <Container>
       <Header>
@@ -115,7 +121,7 @@ export default function TimeIntervals() {
           ocupadas e os novos eventos à medida em que são agendados.
         </Text>
 
-        <MultiStep size={4} currentStep={2} />
+        <MultiStep size={4} currentStep={3} />
       </Header>
 
       <IntervalBox as="form" onSubmit={handleSubmit(handleSetTimeIntervals)}>
@@ -165,7 +171,11 @@ export default function TimeIntervals() {
           <FormError size="md">{errors.intervals.message}</FormError>
         )}
 
-        <Button type="submit" disabled={isSubmitting}>
+        <Button
+          onClick={handleNavigateToNextStep}
+          type="submit"
+          disabled={isSubmitting}
+        >
           Próximo passo
           <ArrowRight />
         </Button>
