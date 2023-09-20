@@ -5,6 +5,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Container, Header } from '../style'
 import { FormAnnotation, ProfileBox } from './style'
+import { useSession } from 'next-auth/react'
+import { log } from 'console'
+import { GetServerSideProps } from 'next'
+import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
+import { getServerSession } from 'next-auth'
 
 const UpdateProfileSchema = z.object({
   bio: z.string(),
@@ -20,6 +25,10 @@ export default function Register() {
   } = useForm<UpdateProfileData>({
     resolver: zodResolver(UpdateProfileSchema),
   })
+
+  const session = useSession()
+
+  console.log(session)
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   async function handleUpdateProfile(data: UpdateProfileData) {}
@@ -56,4 +65,19 @@ export default function Register() {
       </ProfileBox>
     </Container>
   )
+}
+
+// get info user on first call
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(
+    req,
+    res,
+    buildNextAuthOptions(req, res),
+  )
+
+  return {
+    props: {
+      session,
+    },
+  }
 }
