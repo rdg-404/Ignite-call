@@ -1,4 +1,11 @@
-import { Button, Heading, MultiStep, Text, TextArea } from '@ignite-ui/react'
+import {
+  Avatar,
+  Button,
+  Heading,
+  MultiStep,
+  Text,
+  TextArea,
+} from '@ignite-ui/react'
 import { ArrowRight } from 'phosphor-react'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -10,6 +17,8 @@ import { log } from 'console'
 import { GetServerSideProps } from 'next'
 import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
 import { getServerSession } from 'next-auth'
+import { api } from '@/lib/axios'
+import { useRouter } from 'next/router'
 
 const UpdateProfileSchema = z.object({
   bio: z.string(),
@@ -27,11 +36,19 @@ export default function Register() {
   })
 
   const session = useSession()
+  const router = useRouter()
 
   console.log(session)
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  async function handleUpdateProfile(data: UpdateProfileData) {}
+  async function handleUpdateProfile(data: UpdateProfileData) {
+    await api.put('/users/profile', {
+      bio: data.bio,
+    })
+  }
+
+  async function handleNavigateToNextStep() {
+    await router.push(`/call/${session.data?.user.username}`) // redirect to page
+  }
 
   return (
     <Container>
@@ -48,6 +65,10 @@ export default function Register() {
       <ProfileBox as="form" onSubmit={handleSubmit(handleUpdateProfile)}>
         <label>
           <Text size="sm">Foto de perfil</Text>
+          <Avatar
+            src={session.data?.user.avatar_url}
+            alt={session.data?.user.name}
+          />
         </label>
 
         <label>
@@ -58,7 +79,11 @@ export default function Register() {
           </FormAnnotation>
         </label>
 
-        <Button type="submit" disabled={isSubmitting}>
+        <Button
+          onClick={handleNavigateToNextStep}
+          type="submit"
+          disabled={isSubmitting}
+        >
           Finalizar
           <ArrowRight />
         </Button>
