@@ -106,9 +106,6 @@ export default function TimeIntervals() {
     await api.post('/users/time-intervals', {
       intervals,
     })
-  }
-
-  async function handleNavigateToNextStep() {
     await router.push('/register/update-profile')
   }
 
@@ -171,11 +168,7 @@ export default function TimeIntervals() {
           <FormError size="md">{errors.intervals.message}</FormError>
         )}
 
-        <Button
-          onClick={handleNavigateToNextStep}
-          type="submit"
-          disabled={isSubmitting}
-        >
+        <Button type="submit" disabled={isSubmitting}>
           Próximo passo
           <ArrowRight />
         </Button>

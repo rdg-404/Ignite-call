@@ -48,5 +48,5 @@ export default async function handler(
   )
 
   // console.log(session)
-  return res.status(201).end
+  return res.status(201).end()
 }

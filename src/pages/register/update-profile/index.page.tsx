@@ -10,15 +10,14 @@ import { ArrowRight } from 'phosphor-react'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/router'
 import { Container, Header } from '../style'
 import { FormAnnotation, ProfileBox } from './style'
 import { useSession } from 'next-auth/react'
-import { log } from 'console'
 import { GetServerSideProps } from 'next'
 import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
 import { getServerSession } from 'next-auth'
 import { api } from '@/lib/axios'
-import { useRouter } from 'next/router'
 
 const UpdateProfileSchema = z.object({
   bio: z.string(),
@@ -44,10 +43,7 @@ export default function Register() {
     await api.put('/users/profile', {
       bio: data.bio,
     })
-  }
-
-  async function handleNavigateToNextStep() {
-    await router.push(`/call/${session.data?.user.username}`) // redirect to page
+    await router.push(`/call/${session.data?.user.username}`)
   }
 
   return (
@@ -79,11 +75,7 @@ export default function Register() {
           </FormAnnotation>
         </label>
 
-        <Button
-          onClick={handleNavigateToNextStep}
-          type="submit"
-          disabled={isSubmitting}
-        >
+        <Button type="submit" disabled={isSubmitting}>
           Finalizar
           <ArrowRight />
         </Button>
