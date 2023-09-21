@@ -2,6 +2,7 @@ import { Avatar, Heading, Text } from '@ignite-ui/react'
 import { Container, UserHeader } from './style'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { prisma } from '@/lib/prisma'
+import { CallForm } from './CallForm'
 
 interface CallProps {
   user: {
@@ -19,6 +20,7 @@ export default function Call({ user }: CallProps) {
         <Heading>{user.name}</Heading>
         <Text>{user.bio}</Text>
       </UserHeader>
+      <CallForm />
     </Container>
   )
 }
