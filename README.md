@@ -1,5 +1,6 @@
 Comando de instalação da interface de linha de comando do Prisma: <br>
 ` npm i prisma -D `
+
 Comando de instalação da dependência que iremos utilizar na nossa aplicação:<br>
 ` npm i @prisma/client `
 
