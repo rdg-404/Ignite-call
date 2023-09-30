@@ -8,15 +8,24 @@ import {
   CalendarHeader,
   CalendarTitle,
 } from './style'
+import dayjs from 'dayjs'
+import { useState } from 'react'
 
 export function Calendar() {
+  const [currentDate, setCurrentDate] = useState(() => {
+    return dayjs().set('date', 1)
+  })
+
+  const currentMonth = currentDate.format('MMMM')
+  const currentYear = currentDate.format('YYYY')
+
   const weekDays = getWeekDays()
 
   return (
     <CalendarContainer>
       <CalendarHeader>
         <CalendarTitle>
-          Setembro <span>2023</span>
+          {currentMonth} <span>{currentYear}</span>
         </CalendarTitle>
 
         <CalendarActions>
