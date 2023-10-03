@@ -1,5 +1,5 @@
 export function getWeekDays() {
-  const formatter = new Intl.DateTimeFormat('pt-BR', { weekday: 'short' })
+  const formatter = new Intl.DateTimeFormat('EN', { weekday: 'short' })
 
   return Array.from(Array(7).keys())
     .map((day) => formatter.format(new Date(Date.UTC(2021, 5, day)))) // referencia o numero do index com o o nome da semana
