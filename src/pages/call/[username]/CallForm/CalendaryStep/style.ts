@@ -33,7 +33,7 @@ export const TimePicker = styled('div', {
 
   borderLeft: '1px solid $gray600',
   padding: '$6 $6 0',
-  overflow: 'scroll',
+  overflow: 'auto',
 })
 export const TimePickerHeader = styled(Text, {
   fontWeight: '$medium',

@@ -34,7 +34,6 @@ export function CalendaryStep() {
             <TimePickerItem>08:00h</TimePickerItem>
             <TimePickerItem>08:00h</TimePickerItem>
             <TimePickerItem>08:00h</TimePickerItem>
-            <TimePickerItem>08:00h</TimePickerItem>
           </TimePickerList>
         </TimePicker>
       )}

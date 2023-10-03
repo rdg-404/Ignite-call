@@ -130,7 +130,7 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
         <thead>
           <tr>
             {weekDays.map((weekDay) => (
-              <th key={weekDay}>{weekDay.toUpperCase()}</th>
+              <th key={weekDay}>{weekDay.toUpperCase()}.</th>
             ))}
           </tr>
         </thead>
