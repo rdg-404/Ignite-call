@@ -12,3 +12,6 @@ Comando pra rodar a migration:<br>
 
 Comando pra rodar o Prisma Studio:<br>
 ` npx prisma studio `
+
+Biblioteca para melhorar a perfomace da aplicação, salvando os dados em cache
+` npm i @tanstack/react-query `
