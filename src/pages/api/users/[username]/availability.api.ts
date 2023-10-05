@@ -56,5 +56,27 @@ export default async function handler(
     },
   )
 
-  return res.json({ possibleTimes })
+  // gte: maior ou igual
+  // lte: menor ou igual
+  const blockedTimes = await prisma.calling.findMany({
+    select: {
+      date: true,
+    },
+
+    where: {
+      user_id: user.id,
+      date: {
+        gte: referenceDate.set('hour', startHour).toDate(),
+        lte: referenceDate.set('hour', endHour).toDate(),
+      },
+    },
+  })
+
+  const availableTimes = possibleTimes.filter((time) => {
+    return !blockedTimes.some(
+      (blockedTimes) => blockedTimes.date.getHours() === time,
+    )
+  })
+
+  return res.json({ possibleTimes, availableTimes })
 }
