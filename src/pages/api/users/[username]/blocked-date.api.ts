@@ -1,8 +1,6 @@
-/* eslint-disable camelcase */
 import { prisma } from '@/lib/prisma'
-import dayjs from 'dayjs'
+// import dayjs from 'dayjs'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { date } from 'zod'
 
 export default async function handler(
   req: NextApiRequest,
@@ -38,9 +36,9 @@ export default async function handler(
     },
   })
 
-  const blockedWeekDays = [0, 1, 2, 3, 4, 5, 6, 7].filter((weekDay) => {
+  const blockedWeekDays = [0, 1, 2, 3, 4, 5, 6].filter((weekDay) => {
     return !availableWeekDays.some(
-      (availableWeekDays) => availableWeekDays.week_day === weekDay,
+      (availableWeekDay) => availableWeekDay.week_day === weekDay,
     )
   })
   return res.json({ blockedWeekDays })
