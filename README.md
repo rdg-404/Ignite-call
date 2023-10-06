@@ -15,3 +15,14 @@ Comando pra rodar o Prisma Studio:<br>
 
 Biblioteca para melhorar a perfomace da aplicação, salvando os dados em cache <br>
 ` npm i @tanstack/react-query `
+
+
+Comando utilizado para rodar o Docker: <br>
+` docker run --name mysql -e MYSQL_ROOT_PASSWORD=docker -p 3306:3306 mysql:latest `
+
+
+Comando utilizado para iniciar o container:
+` docker start mysql ` <br>
+
+Comando utilizado para parar o container: <br>
+` docker stop mysql `
