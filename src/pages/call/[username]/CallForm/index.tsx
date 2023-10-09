@@ -14,7 +14,7 @@ export function CallForm() {
     return (
       <ConfirmStep
         callingDate={selectedDateTime}
-        onCancelConfirmation={handleClearSelectedDateTime}
+        onReturnToCalendar={handleClearSelectedDateTime}
       />
     )
   }
