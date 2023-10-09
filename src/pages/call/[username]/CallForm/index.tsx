@@ -7,7 +7,7 @@ export function CallForm() {
   const [selectedDateTime, setSelectedDateTime] = useState<Date | null>()
 
   if (selectedDateTime) {
-    return <ConfirmStep />
+    return <ConfirmStep callingDate={selectedDateTime} />
   }
   return <CalendaryStep onSelectDateTime={setSelectedDateTime} />
 }

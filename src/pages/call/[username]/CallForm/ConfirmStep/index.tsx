@@ -4,6 +4,7 @@ import { Button, Text, TextInput } from '@ignite-ui/react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import dayjs from 'dayjs'
 
 const confirmFormSchema = z.object({
   name: z
@@ -15,7 +16,11 @@ const confirmFormSchema = z.object({
 
 type ConfirmFormData = z.infer<typeof confirmFormSchema>
 
-export function ConfirmStep() {
+interface ConfirmStepProps {
+  callingDate: Date
+}
+
+export function ConfirmStep({ callingDate }: ConfirmStepProps) {
   const {
     register,
     handleSubmit,
@@ -27,17 +32,21 @@ export function ConfirmStep() {
   function handleConfirmCall(data: ConfirmFormData) {
     console.log(data)
   }
+
+  const describedDate = dayjs(callingDate).format('DD[ de ]MMMM[ de ]YYYY')
+  const describedTime = dayjs(callingDate).format('HH:mm[h]')
+
   return (
     <ConfirmForm as="form" onSubmit={handleSubmit(handleConfirmCall)}>
       <FormHeader>
         <Text>
           <CalendarBlank />
-          29 de Setembro de 2023
+          {describedDate}
         </Text>
 
         <Text>
           <Clock />
-          16:00
+          {describedTime}
         </Text>
       </FormHeader>
 
