@@ -1,6 +1,13 @@
+import { useState } from 'react'
 import { CalendaryStep } from './CalendaryStep'
+import { ConfirmStep } from './ConfirmStep'
 // import { ConfirmStep } from './ConfirmStep'
 
 export function CallForm() {
-  return <CalendaryStep />
+  const [selectedDateTime, setSelectedDateTime] = useState<Date | null>()
+
+  if (selectedDateTime) {
+    return <ConfirmStep />
+  }
+  return <CalendaryStep onSelectDateTime={setSelectedDateTime} />
 }
