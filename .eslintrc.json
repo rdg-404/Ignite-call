@@ -1,6 +1,14 @@
 {
+
+  "rules": {
+    "camelcase": "off"
+    // "@typescript-eslint/camelcase": ["warn"]
+  },
+  
   "extends": [
     "@rocketseat/eslint-config/react"
     // "next/core-web-vitals"
+
+   
   ] 
 }
