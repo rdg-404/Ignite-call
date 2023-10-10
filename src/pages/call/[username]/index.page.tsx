@@ -3,6 +3,7 @@ import { Container, UserHeader } from './style'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { prisma } from '@/lib/prisma'
 import { CallForm } from './CallForm'
+import { NextSeo } from 'next-seo'
 
 interface CallProps {
   user: {
@@ -14,14 +15,17 @@ interface CallProps {
 
 export default function Call({ user }: CallProps) {
   return (
-    <Container>
-      <UserHeader>
-        <Avatar src={user.avatarUrl} />
-        <Heading>{user.name}</Heading>
-        <Text>{user.bio}</Text>
-      </UserHeader>
-      <CallForm />
-    </Container>
+    <>
+      <NextSeo title={`Agendar com ${user.name} | IgniteCall`} />
+      <Container>
+        <UserHeader>
+          <Avatar src={user.avatarUrl} />
+          <Heading>{user.name}</Heading>
+          <Text>{user.bio}</Text>
+        </UserHeader>
+        <CallForm />
+      </Container>
+    </>
   )
 }
 
